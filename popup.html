@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 350px;
+            padding: 0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+        }
+        .container {
+            padding: 15px;
+        }
+        .header {
+            background-color: #00aff0;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section {
+            background: white;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .field {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        input, textarea, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        textarea {
+            height: 60px;
+            resize: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+        #save {
+            background-color: #eee;
+            color: #333;
+        }
+        #toggleBot {
+            background-color: #28a745;
+            color: white;
+        }
+        #toggleBot.running {
+            background-color: #dc3545;
+        }
+        .tab-list {
+            max-height: 80px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+        .tab-item {
+            padding: 5px;
+            border-bottom: 1px solid #f9f9f9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        .tab-item:hover {
+            background-color: #f0f8ff;
+        }
+        .history-list {
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 11px;
+        }
+        .history-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        .history-time {
+            color: #999;
+            font-size: 10px;
+        }
+        .status {
+            text-align: center;
+            font-size: 11px;
+            color: #28a745;
+            height: 15px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span>Avito AI Bot</span>
+        <button id="toggleBot" style="flex: none; width: auto; padding: 5px 15px;">Запуск</button>
+    </div>
+    
+    <div class="container">
+        <div class="section">
+            <div class="section-title">Активные окна Avito</div>
+            <div id="tabList" class="tab-list">
+                <!-- Окна будут тут -->
+                <div class="tab-item" style="color: #999;">Поиск окон...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Настройки</div>
+            <div class="field">
+                <label>Провайдер AI:</label>
+                <select id="aiProvider">
+                    <option value="gemini">Google Gemini</option>
+                    <option value="ollama">Ollama (Local)</option>
+                </select>
+            </div>
+            <div id="geminiSettings">
+                <div class="field">
+                    <label>Gemini API Key:</label>
+                    <input type="password" id="apiKey" placeholder="Ключ от Google AI Studio">
+                </div>
+            </div>
+            <div id="ollamaSettings" style="display: none;">
+                <div class="field">
+                    <label>Модель Ollama:</label>
+                    <div style="display: flex; gap: 5px;">
+                        <select id="ollamaModel">
+                            <option value="">Загрузка моделей...</option>
+                        </select>
+                        <button id="refreshModels" style="flex: none; width: auto; padding: 0 10px;">🔄</button>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Инструкция (Prompt):</label>
+                <textarea id="prompt"></textarea>
+            </div>
+            <button id="save">Сохранить настройки</button>
+            <div id="status" class="status"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">История ответов</div>
+            <div id="history" class="history-list">
+                <!-- История будет тут -->
+                <div style="text-align: center; color: #999; padding: 10px;">История пуста</div>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
