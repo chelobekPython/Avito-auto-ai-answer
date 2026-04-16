@@ -27,10 +27,6 @@ Enable Developer mode
 Click Load unpacked
 Select the project folder
 
-### ⚙️ Usage
-
-After installation, the extension will start working automatically on Avito and reply to messages.
-
 📬 Contact
 
 Telegram: @I_am_chotko
